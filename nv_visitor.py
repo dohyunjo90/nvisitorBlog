@@ -4,21 +4,23 @@ import requests
 import xml.etree.ElementTree as ET
 import datetime
 import telegram
+from pytz import timezone
 
+KST = datetime.datetime.now(timezone('Asia/Seoul'))
 
 def getNVisitor():
 	naver_id = 'cdh_90'
 	headers = {'User-Agent': 'Mozilla/5.0'}	
 	res = requests.get("https://blog.naver.com/NVisitorgp4Ajax.nhn?blogId="+naver_id,headers=headers,timeout=5)	
-	print("#########################################")
-	print(res.text)
-	print("#########################################")
+	# print("#########################################")
+	# print(res.text)
+	# print("#########################################")
 	return ET.fromstring(res.text)	
 
 def getToDay():
-	return datetime.datetime.today().strftime("%Y%m%d")
+	return KST.strftime("%Y%m%d")
 def getNowTime():
-	return datetime.datetime.today().strftime("%Y년%m월%d일 %H시%M분")
+	return KST.strftime("%Y년%m월%d일 %H시%M분")
 
 def sendMsg(telegram_token, msgText):
 	bot 	= telegram.Bot(token = telegram_token)
@@ -27,7 +29,8 @@ def sendMsg(telegram_token, msgText):
 
 
 if __name__ == '__main__':
-	telegram_token = '7748248585:AAGT2a5qzfF8U2eGsx_7jmJrk2koRmQuA2c'	
+	telegram_token = sys.argv[1]
+	
 	try:
 		visitor_xtree = getNVisitor()		
 		for node in visitor_xtree.findall('visitorcnt'):
