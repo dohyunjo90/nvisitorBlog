@@ -30,9 +30,9 @@ if __name__ == '__main__':
     
     status_code = check_url_status()
     if status_code == 200:
-        msgText = "{} 정상적으로 작동".format(getNowTime())
+        msgText = "{} 정상적으로 작동중 ".format(getNowTime())
     else:
         msgText = "{} 에러".format(getNowTime())
     
     print(msgText)
-    sendMsg(telegram_token, msgText)
+    sendMsg(telegram_token, lab_url_token, msgText)
