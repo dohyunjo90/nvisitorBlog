@@ -30,7 +30,7 @@ if __name__ == '__main__':
     
     status_code = check_url_status(lab_url_token)
     if status_code == 200:
-        msgText = "{} 시스랩 정상적으로 작동중입니다 push test ".format(getNowTime())
+        msgText = "{} 시스랩 정상적으로 작동중입니다".format(getNowTime())
     else:
         msgText = "{} 에러".format(getNowTime())
     
